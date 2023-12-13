@@ -24,17 +24,7 @@
                         @error('name')<span class="text-danger d-block">{{ $message }}</span>@enderror
                     </div>
                 </div>
-                
-                <div class="col">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="Masukkan Username" value="{{ old('username') ? old('username') : $user->username }}">
-                        @error('username')<span class="text-danger d-block">{{ $message }}</span>@enderror
-                    </div>
-                </div>
-            </div>                    
-            
-            <div class="row row-cols-1 row-cols-lg-2">
+
                 <div class="col">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
@@ -43,13 +33,29 @@
                     </div>
                 </div>
                 
+            </div>                    
+            
+            <div class="row row-cols-1 row-cols-lg-2">
                 <div class="col">
                     <div class="mb-3">
                         <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Masukkan Password" value="{{ old('password') ? old('password') : $user->password }}">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Masukkan Password">
                         @error('password')<span class="text-danger d-block">{{ $message }}</span>@enderror
                     </div>
                 </div>
+
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
+                        <select class="form-select form-control @error('role') is-invalid @enderror" name="role" id="role">
+                            <option value="" selected disabled>Select Role</option>
+                            <option value="admin" {{ old('role') == 'admin' || $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="ps" {{ old('role') == 'ps' || $user->role == 'ps' ? 'selected' : '' }}>Pembimbing Siswa</option>
+                        </select>
+                        @error('role')<span class="text-danger d-block">{{ $message }}</span>@enderror
+                    </div>
+                </div>
+
             </div>
 
             <div class="d-flex justify-content-end">

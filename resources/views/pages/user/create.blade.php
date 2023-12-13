@@ -23,17 +23,7 @@
                         @error('name')<span class="text-danger d-block">{{ $message }}</span>@enderror
                     </div>
                 </div>
-                
-                <div class="col">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username" placeholder="Masukkan Username" value="{{ old('username') }}">
-                        @error('username')<span class="text-danger d-block">{{ $message }}</span>@enderror
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row row-cols-1 row-cols-lg-2">                
+
                 <div class="col">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
@@ -41,15 +31,21 @@
                         @error('email')<span class="text-danger d-block">{{ $message }}</span>@enderror
                     </div>
                 </div>
-                
+            </div>
+
+                <div class="row row-cols-1 row-cols-lg-2">     
                 <div class="col">
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Masukkan Password" value="{{ old('password') }}">
-                        @error('password')<span class="text-danger d-block">{{ $message }}</span>@enderror
+                        <select class="form-select form-control"  name="role" id="role">
+                            <option value="" selected disabled>Select an role</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                        @error('role')<span class="text-danger d-block">{{ $message }}</span>@enderror
                     </div>
                 </div>
-            </div>
+                </div>
+            
             
             <div class="d-flex justify-content-end">
                 <button class="btn btn-primary">Simpan</button>

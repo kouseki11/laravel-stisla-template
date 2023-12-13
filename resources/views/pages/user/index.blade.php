@@ -15,7 +15,7 @@
         <div class="mb-3">
             <form action="{{ route('user.index') }}" method="GET">
                 <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Search by name, username, or email" value="{{ request('search') }}">
+                    <input type="text" name="search" class="form-control" placeholder="Search by name, role, or email" value="{{ request('search') }}">
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
             </form>
@@ -30,8 +30,8 @@
                     <tr>
                         <th class="text-nowrap" style="width:50px">No</th>
                         <th class="text-nowrap">Name</th>
-                        <th class="text-nowrap">Username</th>
                         <th class="text-nowrap">Email</th>
+                        <th class="text-nowrap">Role</th>
                         <th class="text-nowrap" style="width: 100px">Action</th>
                     </tr>
                 </thead>
@@ -40,8 +40,8 @@
                         <tr>
                             <td class="text-nowrap">{{ $loop->iteration }}</td>
                             <td class="text-nowrap">{{ $item->name }}</td>
-                            <td class="text-nowrap">{{ $item->username }}</td>
                             <td class="text-nowrap">{{ $item->email }}</td>
+                            <td class="text-nowrap">{{ $item->role }}</td>
                             <td class="text-nowrap">
                                 <div class="d-flex">
                                     <a href="{{ route('user.edit',$item->id) }}" class="btn btn-warning me-2">Edit</a>

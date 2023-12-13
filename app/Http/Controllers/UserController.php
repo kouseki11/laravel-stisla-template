@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Throwable;
 
@@ -32,21 +33,22 @@ class UserController extends Controller
     {
         try {
             DB::beginTransaction();
+            
             $validator = Validator::make($request->all(),[
                 'name'=>'required',
-                'username'=>[
-                    'required',
-                    Rule::unique('user', 'username'),
-                ],
                 'email'=>'required',
-                'password'=>'required'
+                'role' => 'required'
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator->errors())->withInput($request->all());
             }
             $data = $validator->validated();
-            $data['password'] = bcrypt($data['password']);
+
+        // Extract words from name and email
+        $password = bcrypt(substr($data['name'], 0, 3) . substr($data['email'], 0, 3));
+
+        $data['password'] = $password;
 
             User::create($data);
             DB::commit();
@@ -80,19 +82,19 @@ class UserController extends Controller
             DB::beginTransaction();
             $validator = Validator::make($request->all(),[
                 'name'=>'required',
-                'username'=>[
-                    'required',
-                    Rule::unique('user')->ignore($id),
-                ],
                 'email'=>'required',
-                'password'=>'required'
+                'password' => 'nullable'
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator->errors())->withInput($request->all());
             }
-            $data = $validator->validated();
-            $data['password'] = bcrypt($data['password']);
+            
+            $data = $request->only(['name', 'email']); 
+
+            if ($request->filled('password')) {
+                $data['password'] = bcrypt($request->input('password'));
+            }
 
             User::find($id)->update($data);
             DB::commit();
